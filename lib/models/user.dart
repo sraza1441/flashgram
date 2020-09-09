@@ -1,3 +1,5 @@
+import 'post.dart';
+import 'package:flutter/material.dart';
 
 class User {
 
@@ -11,8 +13,16 @@ class User {
    String bio;
    String link;
    String phone;
+   String gender;
 
-   User({this.uid, this.email, this.photoUrl, this.displayName, this.followers, this.following, this.bio, this.posts, this.phone,this.link});
+   String username;
+   AssetImage profilePicture;
+   List<Post> savedPosts;
+   bool hasStory;
+
+   User({this.uid, this.email, this.photoUrl, this.displayName, this.followers, this.following, this.bio, this.posts, this.phone,this.link,this.gender,
+     this.username, this.profilePicture, this.followers, this.following,
+     this.posts, this.savedPosts, this.hasStory});
 
     Map toMap(User user) {
     var data = Map<String, dynamic>();
@@ -24,6 +34,7 @@ class User {
     data['following'] = user.following;
     data['bio'] = user.bio;
     data['link'] = user.link;
+    data['gender'] = user.gender;
     data['posts'] = user.posts;
     data['phone'] = user.phone;
     return data;
@@ -34,6 +45,7 @@ class User {
     this.email = mapData['email'];
     this.photoUrl = mapData['photoUrl'];
     this.link = mapData['link'];
+    this.gender = mapData['gender'];
     this.displayName = mapData['displayName'];
     this.followers = mapData['followers'];
     this.following = mapData['following'];

@@ -24,7 +24,7 @@ class _ProfilePageState extends State<ProfilePage> {
       lastNameController,
       emailController,
       phoneNumberController,
-  bioController;
+  bioController,linkController,genderController;
 
   DocumentSnapshot docSnap;
   FirebaseUser currUser;
@@ -46,6 +46,8 @@ class _ProfilePageState extends State<ProfilePage> {
     emailController = TextEditingController();
     phoneNumberController = TextEditingController();
     bioController = TextEditingController();
+    linkController = TextEditingController();
+    genderController = TextEditingController();
     super.initState();
     fetchProfileData();
   }
@@ -68,6 +70,8 @@ class _ProfilePageState extends State<ProfilePage> {
       phoneNumberController.text = docSnap.data["phonenumber"];
       emailController.text = docSnap.data["email"];
       bioController.text = docSnap.data["bio"];
+      linkController.text = docSnap.data["link"];
+      genderController.text = docSnap.data["link"];
       setState(() {
         isLoading = false;
         isEditable = true;
@@ -115,7 +119,15 @@ class _ProfilePageState extends State<ProfilePage> {
     isChanged = true;
     } else if (docSnap.data["bio"].toString().trim() !=
         bioController.text.trim()) {
-      print("Phone Number Changed");
+      print("Bio Changed");
+      isChanged = true;
+    } else if (docSnap.data["link"].toString().trim() !=
+        linkController.text.trim()) {
+      print("Link Changed");
+      isChanged = true;
+    } else if (docSnap.data["gender"].toString().trim() !=
+        genderController.text.trim()) {
+      print("Gender Changed");
       isChanged = true;
     }
 
@@ -129,6 +141,8 @@ class _ProfilePageState extends State<ProfilePage> {
     data["phonenumber"] = phoneNumberController.text.trim();
     data["email"] = emailController.text.trim();
     data["bio"] = bioController.text.trim();
+    data["link"] = linkController.text.trim();
+    data["gender"] = genderController.text.trim();
     Firestore.instance
         .collection("users")
         .document(currUser.uid)
@@ -166,7 +180,7 @@ class _ProfilePageState extends State<ProfilePage> {
     behavior: SnackBarBehavior.floating,
     ));
     } else {
-    setState(() => isEditable = false);
+    setState(() => isEditable = true);
     }
     }
 
@@ -244,21 +258,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
 
                     TextFormField(
-                      controller: bioController,
-                      enabled: isEditable,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: 5,
-                      decoration: InputDecoration(
-                          labelText: "Bio",
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide:
-                              BorderSide(color: Colors.black, width: 1))),
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    TextFormField(
                       controller: emailController,
                       enabled: isEditable,
                       keyboardType: TextInputType.emailAddress,
@@ -267,7 +266,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide:
-                                  BorderSide(color: Colors.black, width: 1))),
+                              BorderSide(color: Colors.black, width: 1))),
                     ),
                     SizedBox(
                       height: 16,
@@ -285,7 +284,49 @@ class _ProfilePageState extends State<ProfilePage> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide:
-                                  BorderSide(color: Colors.black, width: 1))),
+                              BorderSide(color: Colors.black, width: 1))),
+                    ),
+
+                    TextFormField(
+                      controller: bioController,
+                      enabled: isEditable,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 2,
+                      decoration: InputDecoration(
+                          labelText: "Bio",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide:
+                              BorderSide(color: Colors.black, width: 1))),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    TextFormField(
+                      controller: linkController,
+                      enabled: isEditable,
+                      keyboardType: TextInputType.url,
+                      maxLines: 1,
+                      decoration: InputDecoration(
+                          labelText: "Link",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide:
+                              BorderSide(color: Colors.black, width: 1))),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    TextFormField(
+                      controller: genderController,
+                      enabled: isEditable,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                          labelText: "Gender",
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide:
+                              BorderSide(color: Colors.black, width: 1))),
                     ),
 //
                   ],

@@ -45,6 +45,7 @@ dependencies:
   cached_network_image: ^2.0.0-rc
   image:
   google_fonts:
+  mvc_pattern:
   flutter_webview_plugin:
   flutter_facebook_login:
   flutter_svg: 0.18.0

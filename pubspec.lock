@@ -471,6 +471,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.6+3"
+  mvc_pattern:
+    dependency: "direct main"
+    description:
+      name: mvc_pattern
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.4.0"
   oauth1:
     dependency: "direct main"
     description:
